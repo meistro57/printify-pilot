@@ -1,0 +1,9 @@
+Flask
+Dash
+pandas
+dash-bootstrap-components
+requests
+openai
+pillow
+google-auth
+google-api-python-client
