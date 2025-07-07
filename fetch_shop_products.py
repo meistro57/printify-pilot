@@ -77,7 +77,7 @@ def save_data(shops):
     print("\n✅ Data saved to shop_products.json")
 
 # Run the script
-if __name__ == "__main__":
+def main():
     print("Fetching shops...")
     shops = get_shops()
 
@@ -85,3 +85,7 @@ if __name__ == "__main__":
         save_data(shops)
     else:
         print("No shops found.")
+
+
+if __name__ == "__main__":
+    main()

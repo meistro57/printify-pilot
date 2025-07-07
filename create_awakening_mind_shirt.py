@@ -142,7 +142,7 @@ def publish_product(shop_id, product_id):
     return response.status_code == 200
 
 # 🚦 MAIN EXECUTION 🚦
-if __name__ == "__main__":
+def main():
     print("Fetching Printify Shop ID...")
     shop_id = get_shop_id()
 
@@ -152,7 +152,7 @@ if __name__ == "__main__":
 
     print("\n💡 Generating original Awakening Mind T-shirt ideas...")
     shirt_sayings = generate_awakening_mind_quote()
-    
+
     for i, saying in enumerate(shirt_sayings, 1):
         print(f"{i}. {saying}")
 
@@ -200,3 +200,7 @@ if __name__ == "__main__":
             print("📌 Product saved as draft.")
     else:
         print("❌ Failed to create product.")
+
+
+if __name__ == "__main__":
+    main()

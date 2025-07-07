@@ -40,12 +40,20 @@ def upload_to_drive(file_path):
     return file_url
 
 # Run uploader
-if __name__ == "__main__":
+def main():
     image_folder = "generated_images"
-    images = sorted([f for f in os.listdir(image_folder) if f.endswith(".png")], key=lambda x: os.path.getmtime(os.path.join(image_folder, x)), reverse=True)
+    images = sorted(
+        [f for f in os.listdir(image_folder) if f.endswith(".png")],
+        key=lambda x: os.path.getmtime(os.path.join(image_folder, x)),
+        reverse=True,
+    )
 
     if images:
         latest_image_path = os.path.join(image_folder, images[0])
         upload_to_drive(latest_image_path)
     else:
         print("❌ No image found for upload.")
+
+
+if __name__ == "__main__":
+    main()

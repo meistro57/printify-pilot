@@ -64,5 +64,9 @@ def export_selected():
     return jsonify({"message": "Export successful!", "count": len(selected_products)})
 
 
-if __name__ == "__main__":
+def main():
     app.run(debug=True)
+
+
+if __name__ == "__main__":
+    main()

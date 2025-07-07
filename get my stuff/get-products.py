@@ -32,7 +32,7 @@ def get_products(shop_id):
     
     return products
 
-if __name__ == "__main__":
+def main():
     shop_id = "your_shop_id_here"  # Replace with your actual Shop ID
     products = get_products(shop_id)
     if products:
@@ -41,3 +41,7 @@ if __name__ == "__main__":
         print("Product data saved to printify_products.json")
     else:
         print("No products retrieved.")
+
+
+if __name__ == "__main__":
+    main()
