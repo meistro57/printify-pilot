@@ -12,6 +12,7 @@ class Blueprint:
     keywords: List[str] = field(default_factory=list)
     variant_notes: Optional[str] = None
     product_type: Optional[str] = None
+    language: str = "en"
 
 
 def parse_blueprint(data: str) -> Blueprint:
@@ -23,6 +24,7 @@ def parse_blueprint(data: str) -> Blueprint:
         keywords = payload.get("keywords", [])
         variant_notes = payload.get("variant_notes")
         product_type = payload.get("product_type")
+        language = payload.get("language", "en")
     except json.JSONDecodeError:
         # Fallback simple text parser
         intent = data.strip()
@@ -30,5 +32,7 @@ def parse_blueprint(data: str) -> Blueprint:
         keywords = []
         variant_notes = None
         product_type = None
+        language = "en"
     return Blueprint(intent=intent, tone=tone, keywords=keywords,
-                     variant_notes=variant_notes, product_type=product_type)
+                     variant_notes=variant_notes, product_type=product_type,
+                     language=language)
