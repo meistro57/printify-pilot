@@ -1,0 +1,5 @@
+# requirements.txt – Python dependencies
+Flask
+openai
+requests
+pillow

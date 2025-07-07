@@ -1,0 +1,43 @@
+<!-- index.html – GUI frontend for AI-powered T-shirt automation -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI T-Shirt Automation</title>
+<script>
+async function generateImages() {
+    const checked = Array.from(document.querySelectorAll('#phraseList input[type="checkbox"]:checked'));
+    for (const cb of checked) {
+        const phrase = cb.getAttribute('data-phrase');
+        const response = await fetch('/generate_text_images', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({phrase})
+        });
+        const images = await response.json();
+
+        // Show preview in the page
+        document.getElementById(`preview_${cb.id}`).innerHTML = `
+            <p><strong>Preview for: ${phrase}</strong></p>
+            <img src="${images.black}" width="250" alt="Black Text">
+            <img src="${images.white}" width="250" alt="White Text">
+            <hr>
+        `;
+    }
+}
+</script>
+
+</head>
+<body>
+    <h2>AI-Powered T-Shirt Automation 🚀👕✨</h2>
+    
+    <h3>Step 1: Load & Review Phrases</h3>
+    <div id="phraseList"></div>
+
+    <h3>Step 2: Generate Images for Approved Phrases</h3>
+    <button onclick="generateImages()">Generate Images</button>
+
+    <!-- You can expand this to include all further steps similarly -->
+</body>
+</html>
