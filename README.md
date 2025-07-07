@@ -42,13 +42,25 @@ product data from the Flask backend.
 
 ### Setup
 
+Run the convenience script to install dependencies and launch both the Flask
+backend and the React development server:
+
+```bash
+./start.sh
+```
+
+This starts the backend on `http://localhost:5000` and serves the frontend at
+`http://localhost:8080`.
+
+If you prefer to build the frontend manually:
+
 ```bash
 cd webpack-app
 npm install
 npm run build
 ```
 
-This creates `webpack-app/dist` containing the compiled bundle. Run the Flask
+This creates `webpack-app/dist` containing the compiled bundle. Start the Flask
 backend (`python app.py`) and open `dist/index.html` or use `npm start` for
 live development.
 
