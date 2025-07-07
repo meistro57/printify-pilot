@@ -29,4 +29,9 @@ def get_blueprints():
         # Handle network-related errors
         print(f"An error occurred while making the request: {e}")
 
-get_blueprints()
+def main():
+    get_blueprints()
+
+
+if __name__ == '__main__':
+    main()

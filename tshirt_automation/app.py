@@ -42,5 +42,9 @@ def generate_text_images_route():
     
     return jsonify(images)
 
-if __name__ == '__main__':
+def main():
     app.run(debug=True)
+
+
+if __name__ == '__main__':
+    main()

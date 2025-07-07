@@ -73,5 +73,9 @@ def display_product_details(selected_rows):
         ])
     ], className="shadow-lg p-3 mb-5 bg-white rounded")
 
-if __name__ == '__main__':
+def main():
     app.run(debug=True)
+
+
+if __name__ == '__main__':
+    main()

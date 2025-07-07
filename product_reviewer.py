@@ -72,10 +72,10 @@ def update_product_description(shop_id, product_id, new_description):
     return response.status_code == 200
 
 # Main execution
-if __name__ == "__main__":
+def main():
     print("Fetching shops...")
     shops = get_shops()
-    
+
     if not shops:
         print("No shops found. Exiting.")
         exit()
@@ -103,13 +103,13 @@ if __name__ == "__main__":
 
             print("\n⚠️ Suggested New Description:")
             print(ai_response)
-            
+
             user_input = input("\nApprove new description? (yes/no/exit): ").strip().lower()
 
             if user_input == "yes":
                 print("Updating description...")
                 success = update_product_description(shop_id, product_id, ai_response)
-                
+
                 if success:
                     print("✅ Update successful!")
                 else:
@@ -123,3 +123,7 @@ if __name__ == "__main__":
                 print("⏩ Skipping product.")
 
             time.sleep(2)  # Pause to avoid rate limits
+
+
+if __name__ == "__main__":
+    main()
