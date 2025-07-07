@@ -18,7 +18,7 @@ except Exception:  # Module may not exist in tests
 def create_product_from_blueprint(bp: Blueprint) -> dict:
     prompts = generate_prompts(bp)
     images = generate_images(prompts)
-    metadata = generate_metadata(bp)
+    metadata = generate_metadata(bp, language=bp.language)
 
     result = {
         'prompts': prompts,
