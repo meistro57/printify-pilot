@@ -1,5 +1,15 @@
 # Printify Pilot
 
-This repository is a placeholder for a future project that will explore the Printify API. At the moment it only contains the Apache 2.0 License. No source code or tools have been published yet.
+This repository collects scripts and experiments for working with the Printify API.  It now contains a variety of helper utilities for generating images, interacting with Printify, and reviewing product data.
 
-Expect this repository to grow with scripts or examples for interacting with Printify, such as creating products, managing shops, or automating order workflow. Until then, there's nothing to build or run.
+## Installation
+
+Create a virtual environment and install the required Python packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Status
+
+The project is still a work in progress and the tools are provided as-is.
