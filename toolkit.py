@@ -9,6 +9,7 @@ MODULES = {
     'awakening-shirt': 'create_awakening_mind_shirt',
     'google-upload': 'google_drive_uploader',
     'fetch-products': 'fetch_shop_products',
+    'creator-portal': 'creator_portal.app',
 }
 
 
