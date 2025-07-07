@@ -26,3 +26,20 @@ python toolkit.py <command>
 Available commands include `data-viewer`, `tshirt-automation`,
 `blueprint-review`, `product-reviewer`, `awakening-shirt`,
 `google-upload` and `fetch-products`.
+
+## Webpack Frontend
+
+The `webpack-app` directory contains a small React application that fetches
+product data from the Flask backend.
+
+### Setup
+
+```bash
+cd webpack-app
+npm install
+npm run build
+```
+
+This creates `webpack-app/dist` containing the compiled bundle. Run the Flask
+backend (`python app.py`) and open `dist/index.html` or use `npm start` for
+live development.
