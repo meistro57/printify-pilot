@@ -10,6 +10,14 @@ Create a virtual environment and install the required Python packages:
 pip install -r requirements.txt
 ```
 
+## Configuration
+
+Run the setup script to save your API keys in `config.py`:
+
+```bash
+python setup.py
+```
+
 ## Status
 
 The project is still a work in progress and the tools are provided as-is.
