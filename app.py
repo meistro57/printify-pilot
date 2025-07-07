@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, send_from_directory, jsonify, request
 import json
 import os
 
@@ -16,8 +16,14 @@ def load_data():
 
 @app.route("/")
 def index():
-    """Serve the main interface."""
-    return render_template("index.html")
+    """Serve the compiled frontend."""
+    return send_from_directory("webpack-app/dist", "index.html")
+
+
+@app.route("/<path:path>")
+def static_files(path):
+    """Serve static files from the webpack build."""
+    return send_from_directory("webpack-app/dist", path)
 
 @app.route("/data")
 def get_data():
