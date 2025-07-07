@@ -33,7 +33,7 @@ python toolkit.py <command>
 
 Available commands include `data-viewer`, `tshirt-automation`,
 `blueprint-review`, `product-reviewer`, `awakening-shirt`,
-`google-upload` and `fetch-products`.
+`google-upload`, `fetch-products` and `creator-portal`.
 
 ## Webpack Frontend
 
@@ -63,6 +63,16 @@ npm run build
 This creates `webpack-app/dist` containing the compiled bundle. Start the Flask
 backend (`python app.py`) and open `dist/index.html` or use `npm start` for
 live development.
+
+## Creator Portal
+
+The `creator_portal` directory implements a new FastAPI backend with modular
+agents for parsing blueprints, generating prompts and metadata, and optionally
+creating products on Printify. Launch it with:
+
+```bash
+python toolkit.py creator-portal
+```
 
 ## Roadmap
 
