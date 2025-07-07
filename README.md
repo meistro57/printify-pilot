@@ -43,3 +43,8 @@ npm run build
 This creates `webpack-app/dist` containing the compiled bundle. Run the Flask
 backend (`python app.py`) and open `dist/index.html` or use `npm start` for
 live development.
+
+## Roadmap
+
+A list of upcoming features is maintained in [roadmap.md](roadmap.md).
+Contributions and feedback are welcome!
