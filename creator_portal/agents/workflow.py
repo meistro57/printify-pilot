@@ -17,3 +17,8 @@ def run_template(name: str) -> List[str]:
     for step in steps:
         results.append(step())
     return results
+
+
+def list_templates() -> List[str]:
+    """Return the names of all registered templates."""
+    return list(_TEMPLATES.keys())

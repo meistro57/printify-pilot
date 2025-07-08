@@ -25,3 +25,11 @@ def export_csv(data: List[Dict[str, int]]) -> str:
     writer.writeheader()
     writer.writerows(data)
     return output.getvalue()
+
+
+def average_sales(data: List[Dict[str, int]]) -> float:
+    """Return average sales from analytics data."""
+    if not data:
+        return 0.0
+    total = sum(item.get("sales", 0) for item in data)
+    return total / len(data)

@@ -4,6 +4,7 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from creator_portal.agents.analytics import get_analytics, export_csv
+import creator_portal.agents.analytics as analytics
 from creator_portal.agents.recommendations import design_recommendations
 from creator_portal.agents.social_media import post_to_social
 from creator_portal.agents.chat import add_message, get_messages
@@ -11,15 +12,15 @@ from creator_portal.agents.ab_testing import choose_variant
 from creator_portal.agents.blueprint_parser import parse_blueprint
 from creator_portal.agents.metadata_gen import generate_metadata
 from creator_portal.agents.image_gen import generate_images
-from creator_portal.agents.search import index_products, search_products
-from creator_portal.agents.marketplace import upload_design, list_designs
+from creator_portal.agents.search import index_products, search_products, count_products
+from creator_portal.agents.marketplace import upload_design, list_designs, delete_design
 from creator_portal.agents.affiliate import generate_link, record_click, report
 from creator_portal.agents.pricing import schedule_discount, list_schedules
 from creator_portal.agents.import_tools import import_products
 from creator_portal.agents.tax import calculate_tax
-from creator_portal.agents.workflow import register_template, run_template
+from creator_portal.agents.workflow import register_template, run_template, list_templates
 from creator_portal.agents.voice_assistant import register_command, trigger
-from creator_portal.agents.feedback import add_review, get_reviews
+from creator_portal.agents.feedback import add_review, get_reviews, average_rating
 from creator_portal.agents.price_tuning import record_sale, suggest_price
 from creator_portal.agents.style_match import match_style
 from creator_portal.agents.collection_generator import generate_collection
@@ -33,6 +34,11 @@ def test_analytics_export():
     csv_text = export_csv(data)
     assert 'product' in csv_text
     assert csv_text.count('\n') >= 2
+
+
+def test_average_sales():
+    data = get_analytics()
+    assert analytics.average_sales(data) == 7.5
 
 
 def test_design_recommendations():
@@ -78,6 +84,11 @@ def test_search_index():
     assert results
 
 
+def test_search_count():
+    index_products([{'title': 'Sunset Tee', 'tags': ['retro']}])
+    assert count_products('retro') >= 1
+
+
 def test_plugins_loaded():
     assert 'sample_plugin' in list_plugins()
 
@@ -91,6 +102,12 @@ def test_celery_task(monkeypatch):
 def test_marketplace_upload_list():
     upload_design('design1', 'alice', 'http://example.com/img.png')
     assert list_designs()[0]['name'] == 'design1'
+
+
+def test_marketplace_delete():
+    upload_design('temp', 'bob', 'url')
+    assert delete_design('temp')
+    assert not any(d['name'] == 'temp' for d in list_designs())
 
 
 def test_affiliate_flow():
@@ -118,14 +135,19 @@ def test_workflow_template():
     assert run_template('demo') == ['a', 'b']
 
 
+def test_workflow_list():
+    assert 'demo' in list_templates()
+
+
 def test_voice_assistant():
     register_command('start', lambda: 'ok')
     assert trigger('start') == 'ok'
 
 
 def test_feedback_loop():
-    add_review('p1', 'great')
+    add_review('p1', 'great', rating=4.0)
     assert get_reviews('p1')[0] == 'great'
+    assert average_rating('p1') == 4.0
 
 
 def test_price_tuning():
