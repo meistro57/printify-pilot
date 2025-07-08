@@ -11,12 +11,22 @@ import fetch_shop_products
 app = Flask(__name__)
 
 DATA_FILE = "shop_products.json"
+SAMPLE_FILE = "sample_shop_products.json"
 EXPORT_FILE = "selected_products.json"
 
 def load_data():
-    """Load product data from JSON file."""
+    """Load product data from ``shop_products.json``.
+
+    If the main data file is missing (for example when the Printify API
+    cannot be reached), fall back to ``sample_shop_products.json`` so the
+    UI can display example products.
+    """
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    if os.path.exists(SAMPLE_FILE):
+        print(f"⚠️  {DATA_FILE} not found, using {SAMPLE_FILE} for demo data")
+        with open(SAMPLE_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     return {"shops": [], "fetched_at": "N/A"}
 
