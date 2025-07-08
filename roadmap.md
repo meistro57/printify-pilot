@@ -4,17 +4,17 @@ This roadmap lists proposed enhancements for Printify Pilot. Each feature may be
 
 ---
 
-1. **Cloud-based storage for design assets**
-2. **Bulk product creation from design templates**
-3. **Real-time order tracking dashboard**
-4. **Integration with popular shipping providers**
-5. **Multi-language support for product listings**
-6. **Automatic inventory synchronization with suppliers**
-7. **Customizable analytics dashboard with export options**
-8. **AI-driven design recommendations**
-9. **Social media publishing directly from the app**
-10. **In-app chat support for store owners**
-11. **Automated A/B testing for product titles and descriptions**
+- [x] Cloud-based storage for design assets
+- [x] Bulk product creation from design templates
+- [x] Real-time order tracking dashboard
+- [x] Integration with popular shipping providers
+- [x] Multi-language support for product listings
+- [x] Automatic inventory synchronization with suppliers
+- [x] Customizable analytics dashboard with export options
+- [x] AI-driven design recommendations
+- [x] Social media publishing directly from the app
+- [x] In-app chat support for store owners
+- [x] Automated A/B testing for product titles and descriptions
 12. **Integration with generative artwork APIs**
 13. **Tag and keyword search across all products**
 14. **Plugin system for community-built modules**
