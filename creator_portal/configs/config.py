@@ -6,7 +6,9 @@ ROOT_CONFIG = Path(__file__).resolve().parents[2] / 'config.py'
 if ROOT_CONFIG.exists():
     sys.path.append(str(ROOT_CONFIG.parent))
     from config import PRINTIFY_API_KEY, BASE_URL, OPENAI_API_KEY
+    CELERY_BROKER_URL = getattr(sys.modules['config'], 'CELERY_BROKER_URL', 'redis://localhost:6379/0')
 else:
     PRINTIFY_API_KEY = ''
     BASE_URL = 'https://api.printify.com/v1'
     OPENAI_API_KEY = ''
+    CELERY_BROKER_URL = 'redis://localhost:6379/0'

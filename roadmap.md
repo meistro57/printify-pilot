@@ -15,9 +15,9 @@ This roadmap lists proposed enhancements for Printify Pilot. Each feature may be
 - [x] Social media publishing directly from the app
 - [x] In-app chat support for store owners
 - [x] Automated A/B testing for product titles and descriptions
-12. **Integration with generative artwork APIs**
-13. **Tag and keyword search across all products**
-14. **Plugin system for community-built modules**
+- [x] Integration with generative artwork APIs
+- [x] Tag and keyword search across all products
+- [x] Plugin system for community-built modules
 15. **Marketplace for user-contributed designs**
 16. **Affiliate link management and reporting**
 17. **Auto-scheduling for price discounts and promotions**
