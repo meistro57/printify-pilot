@@ -1,6 +1,12 @@
 from flask import Flask, send_from_directory, jsonify, request
 import json
 import os
+import requests
+import openai
+from typing import Any
+
+from config import PRINTIFY_API_KEY, OPENAI_API_KEY, BASE_URL
+import fetch_shop_products
 
 app = Flask(__name__)
 
@@ -13,6 +19,50 @@ def load_data():
         with open(DATA_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     return {"shops": [], "fetched_at": "N/A"}
+
+
+def test_printify_connection() -> bool:
+    """Check connectivity to the Printify API."""
+    if not PRINTIFY_API_KEY:
+        print("⚠️  PRINTIFY_API_KEY not configured")
+        return False
+    try:
+        resp = requests.get(f"{BASE_URL}/shops.json", headers={"Authorization": f"Bearer {PRINTIFY_API_KEY}"})
+        if resp.status_code == 200:
+            print("✅ Connected to Printify API")
+            return True
+        print(f"❌ Printify API error: {resp.status_code} {resp.text}")
+    except Exception as exc:
+        print(f"❌ Printify API connection failed: {exc}")
+    return False
+
+
+def test_openai_connection() -> bool:
+    """Check connectivity to the OpenAI API."""
+    if not OPENAI_API_KEY:
+        print("⚠️  OPENAI_API_KEY not configured")
+        return False
+    openai.api_key = OPENAI_API_KEY
+    try:
+        openai.Model.list()
+        print("✅ Connected to OpenAI API")
+        return True
+    except Exception as exc:
+        print(f"❌ OpenAI API connection failed: {exc}")
+    return False
+
+
+def run_startup_tasks() -> None:
+    """Run connection tests and populate data."""
+    print("\n🔌 Running API connection tests...")
+    test_printify_connection()
+    test_openai_connection()
+
+    print("\n📥 Fetching product data...")
+    try:
+        fetch_shop_products.main()
+    except Exception as exc:
+        print(f"❌ Failed to populate data: {exc}")
 
 @app.route("/")
 def index():
@@ -71,6 +121,7 @@ def export_selected():
 
 
 def main():
+    run_startup_tasks()
     app.run(debug=True)
 
 
