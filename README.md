@@ -4,9 +4,13 @@ This repository collects scripts and experiments for working with the Printify A
 
 ## Installation
 
-Create a virtual environment and install the required Python packages:
+Create a virtual environment and install the required Python packages. The
+`start.sh` helper will automatically create and activate `.venv` if it is not
+already active, but you can also do it manually:
 
 ```bash
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 

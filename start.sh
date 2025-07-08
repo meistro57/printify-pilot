@@ -3,6 +3,17 @@ set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Ensure a Python virtual environment is active
+if [ -z "${VIRTUAL_ENV:-}" ]; then
+    if [ ! -d "$DIR/.venv" ]; then
+        echo "Creating virtual environment..."
+        python3 -m venv "$DIR/.venv"
+    fi
+    echo "Activating virtual environment..."
+    # shellcheck disable=SC1091
+    source "$DIR/.venv/bin/activate"
+fi
+
 # Install Python dependencies
 if [ -f "$DIR/requirements.txt" ]; then
     echo "Installing Python dependencies..."
