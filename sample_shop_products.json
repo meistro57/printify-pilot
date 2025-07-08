@@ -1,0 +1,14 @@
+{
+  "fetched_at": "N/A",
+  "shops": [
+    {
+      "id": 1,
+      "title": "Demo Shop",
+      "products": [
+        {"id": 101, "title": "Sample Product 1"},
+        {"id": 102, "title": "Sample Product 2"},
+        {"id": 103, "title": "Sample Product 3"}
+      ]
+    }
+  ]
+}
