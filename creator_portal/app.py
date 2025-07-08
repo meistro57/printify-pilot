@@ -23,6 +23,7 @@ from .agents.affiliate import generate_link, record_click, report
 from .agents.pricing import schedule_discount, list_schedules
 from .agents.import_tools import import_products
 from .agents.tax import calculate_tax
+from .agents.collection_generator import generate_collection
 from .plugins import list_plugins
 from .tasks import create_product_task, celery_app
 from fastapi.responses import PlainTextResponse
@@ -85,6 +86,12 @@ class ImportPayload(BaseModel):
 class TaxPayload(BaseModel):
     amount: float
     region: str
+
+
+class CollectionPayload(BaseModel):
+    persona: str | None = None
+    event: str | None = None
+    items: int = 3
 
 
 @app.post('/blueprint/parse')
@@ -216,6 +223,11 @@ def analytics_export():
 @app.get('/design/recommendations')
 def design_recs(num: int = 3):
     return design_recommendations(num)
+
+
+@app.post('/collection/generate')
+def collection_generate(payload: CollectionPayload):
+    return generate_collection(payload.persona, payload.event, payload.items)
 
 
 @app.post('/social/post')
