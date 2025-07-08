@@ -12,6 +12,12 @@ from creator_portal.agents.blueprint_parser import parse_blueprint
 from creator_portal.agents.metadata_gen import generate_metadata
 from creator_portal.agents.image_gen import generate_images
 from creator_portal.agents.search import index_products, search_products
+from creator_portal.agents.marketplace import upload_design, list_designs
+from creator_portal.agents.affiliate import generate_link, record_click, report
+from creator_portal.agents.pricing import schedule_discount, list_schedules
+from creator_portal.agents.import_tools import import_products
+from creator_portal.agents.tax import calculate_tax
+from datetime import datetime
 from creator_portal.plugins import list_plugins
 from creator_portal.tasks import create_product_task, celery_app
 
@@ -74,3 +80,29 @@ def test_celery_task(monkeypatch):
     celery_app.conf.task_always_eager = True
     res = create_product_task.delay('{"intent": "test"}').get()
     assert 'metadata' in res
+
+
+def test_marketplace_upload_list():
+    upload_design('design1', 'alice', 'http://example.com/img.png')
+    assert list_designs()[0]['name'] == 'design1'
+
+
+def test_affiliate_flow():
+    link = generate_link('prod123')
+    record_click(link)
+    assert report()[link]['clicks'] == 1
+
+
+def test_pricing_schedule():
+    item = schedule_discount('prod', 10.0, datetime.utcnow(), datetime.utcnow())
+    assert item in list_schedules()
+
+
+def test_import_products():
+    data = [{'title': 'A'}, {'title': 'B'}]
+    res = import_products('etsy', data)
+    assert res[0]['platform'] == 'etsy'
+
+
+def test_tax_calc():
+    assert calculate_tax(100.0, 'us') == 7.0
