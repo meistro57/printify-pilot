@@ -11,3 +11,4 @@ fastapi
 uvicorn
 celery
 redis
+python-dotenv
