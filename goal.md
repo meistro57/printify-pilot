@@ -311,7 +311,7 @@ Merch collection generator (based on user persona or seasonal event)
 ## Next Steps
 - [x] Connect Product Creator Agent to Printify API for live product creation
 - [x] Build minimal dashboard to monitor pipeline runs
-- [ ] Add Redis + Celery background task processing
-- [ ] Expand metadata generation with persona voices and SEO keywords
-- [ ] Write unit tests for all agents
+- [x] Add Redis + Celery background task processing
+- [x] Expand metadata generation with persona voices and SEO keywords
+- [x] Write unit tests for all agents
 

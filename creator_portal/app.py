@@ -16,6 +16,9 @@ from .agents.recommendations import design_recommendations
 from .agents.social_media import post_to_social
 from .agents.chat import add_message, get_messages
 from .agents.ab_testing import choose_variant
+from .agents.search import search_products, index_products
+from .plugins import list_plugins
+from .tasks import create_product_task, celery_app
 from fastapi.responses import PlainTextResponse
 
 app = FastAPI(title="Creator Portal")
@@ -67,7 +70,15 @@ def metadata_generate(payload: BlueprintPayload):
 @app.post('/product/create')
 def product_create(payload: BlueprintPayload):
     bp = parse_blueprint(payload.data)
-    return create_product_from_blueprint(bp)
+    result = create_product_from_blueprint(bp)
+    index_products([result['metadata']])
+    return result
+
+
+@app.post('/tasks/create_product')
+def product_create_task(payload: BlueprintPayload):
+    task = create_product_task.delay(payload.data)
+    return {'task_id': task.id}
 
 
 @app.post('/product/bulk_create')
@@ -75,7 +86,9 @@ def product_bulk_create(payload: BulkBlueprintPayload):
     results = []
     for item in payload.items:
         bp = parse_blueprint(item)
-        results.append(create_product_from_blueprint(bp))
+        res = create_product_from_blueprint(bp)
+        results.append(res)
+        index_products([res['metadata']])
     return results
 
 
@@ -105,6 +118,11 @@ def analytics_data():
     return get_analytics()
 
 
+@app.get('/search/products')
+def search_products_route(q: str):
+    return search_products(q)
+
+
 @app.get('/analytics/export', response_class=PlainTextResponse)
 def analytics_export():
     return export_csv(get_analytics())
@@ -128,6 +146,11 @@ def chat_post(payload: MessagePayload):
 @app.get('/chat/messages')
 def chat_messages():
     return get_messages()
+
+
+@app.get('/plugins/list')
+def plugins_list():
+    return list_plugins()
 
 
 @app.post('/abtest/run')

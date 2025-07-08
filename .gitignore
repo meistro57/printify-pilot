@@ -5,3 +5,4 @@ __pycache__/
 # Ignore node dependencies and build output
 webpack-app/node_modules/
 webpack-app/dist/
+creator_portal/images/
