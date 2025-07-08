@@ -71,7 +71,8 @@ live development.
 The `creator_portal` directory implements a new FastAPI backend with modular
 agents for parsing blueprints, generating prompts and metadata, and optionally
 creating products on Printify. It now includes a plugin system, a simple search
-engine, Celery background tasks, and a merch collection generator agent.
+engine, Celery background tasks, a merch collection generator agent,
+and a demand forecasting module for trend analysis.
 Launch it with:
 
 ```bash

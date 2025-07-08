@@ -27,6 +27,7 @@ from creator_portal.agents.collection_generator import generate_collection
 from datetime import datetime
 from creator_portal.plugins import list_plugins
 from creator_portal.tasks import create_product_task, celery_app
+from creator_portal.agents.demand_forecasting import forecast_demand, propose_templates
 
 
 def test_analytics_export():
@@ -166,4 +167,10 @@ def test_collection_generator():
     items = generate_collection(persona='gamer', items=2)
     assert len(items) == 2
     assert 'metadata' in items[0]
+def test_demand_forecasting():
+    niches = forecast_demand(top_n=2)
+    assert len(niches) == 2
+    templates = propose_templates(niches)
+    assert len(templates) == 2
+    assert 'intent' in templates[0]
 
