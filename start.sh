@@ -3,6 +3,11 @@ set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Prevent Git from overwriting local config.py during pulls
+if git -C "$DIR" ls-files --error-unmatch config.py >/dev/null 2>&1; then
+    git -C "$DIR" update-index --skip-worktree config.py || true
+fi
+
 # Ensure a Python virtual environment is active
 if [ -z "${VIRTUAL_ENV:-}" ]; then
     if [ ! -d "$DIR/.venv" ]; then
