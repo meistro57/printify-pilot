@@ -24,6 +24,11 @@ This roadmap lists proposed enhancements for Printify Pilot. Each feature may be
 18. **Import tools for migrating from competitor platforms**
 19. **Automatic tax calculation by region**
 20. **Workflow automation templates for repetitive tasks**
+21. **AI Voice Assistant to trigger flows**
+22. **Design feedback loop via customer reviews**
+23. **Dynamic price tuning based on profit analysis**
+24. **Style match retrieval from successful Etsy sellers**
+25. **Merch collection generator (based on user persona or seasonal event)**
 
 ---
 
