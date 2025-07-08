@@ -12,8 +12,9 @@ pip install -r requirements.txt
 
 ## Configuration
 
-Configuration values are read from environment variables by default. You can
-optionally run the setup script to generate a `config.py` file:
+Configuration values are read from environment variables. Copy ``.env.example``
+to ``.env`` and fill in your credentials or export them in your shell. You can
+optionally run the setup script to generate a ``config.py`` file:
 
 ```bash
 python setup.py
