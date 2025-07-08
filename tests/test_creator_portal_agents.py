@@ -22,6 +22,7 @@ from creator_portal.agents.voice_assistant import register_command, trigger
 from creator_portal.agents.feedback import add_review, get_reviews
 from creator_portal.agents.price_tuning import record_sale, suggest_price
 from creator_portal.agents.style_match import match_style
+from creator_portal.agents.collection_generator import generate_collection
 from datetime import datetime
 from creator_portal.plugins import list_plugins
 from creator_portal.tasks import create_product_task, celery_app
@@ -137,4 +138,10 @@ def test_price_tuning():
 def test_style_match():
     results = match_style('retro')
     assert 'Sunset Tee' in results
+
+
+def test_collection_generator():
+    items = generate_collection(persona='gamer', items=2)
+    assert len(items) == 2
+    assert 'metadata' in items[0]
 
