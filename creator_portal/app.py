@@ -11,6 +11,12 @@ from .agents.assets import upload_asset
 from .agents.order_tracker import get_order_statuses
 from .agents.shipping import get_shipping_rates
 from .agents.inventory import sync_inventory
+from .agents.analytics import get_analytics, export_csv
+from .agents.recommendations import design_recommendations
+from .agents.social_media import post_to_social
+from .agents.chat import add_message, get_messages
+from .agents.ab_testing import choose_variant
+from fastapi.responses import PlainTextResponse
 
 app = FastAPI(title="Creator Portal")
 
@@ -21,6 +27,20 @@ class BlueprintPayload(BaseModel):
 
 class BulkBlueprintPayload(BaseModel):
     items: list[str]
+
+
+class MessagePayload(BaseModel):
+    user: str
+    text: str
+
+
+class SocialPostPayload(BaseModel):
+    platform: str
+    content: str
+
+
+class ABTestPayload(BaseModel):
+    options: list[dict]
 
 
 class OrdersPayload(BaseModel):
@@ -78,6 +98,41 @@ def shipping_rates(provider: str, destination: str):
 @app.post('/inventory/sync')
 def inventory_sync():
     return sync_inventory()
+
+
+@app.get('/analytics/data')
+def analytics_data():
+    return get_analytics()
+
+
+@app.get('/analytics/export', response_class=PlainTextResponse)
+def analytics_export():
+    return export_csv(get_analytics())
+
+
+@app.get('/design/recommendations')
+def design_recs(num: int = 3):
+    return design_recommendations(num)
+
+
+@app.post('/social/post')
+def social_post(payload: SocialPostPayload):
+    return post_to_social(payload.platform, payload.content)
+
+
+@app.post('/chat/post')
+def chat_post(payload: MessagePayload):
+    return add_message(payload.user, payload.text)
+
+
+@app.get('/chat/messages')
+def chat_messages():
+    return get_messages()
+
+
+@app.post('/abtest/run')
+def abtest_run(payload: ABTestPayload):
+    return choose_variant(payload.options)
 
 
 def main():
