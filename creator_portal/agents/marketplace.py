@@ -16,3 +16,12 @@ def upload_design(name: str, author: str, url: str) -> Dict[str, str]:
 def list_designs() -> List[Dict[str, str]]:
     """Return all uploaded designs."""
     return list(_DESIGNS)
+
+
+def delete_design(name: str) -> bool:
+    """Remove a design by name. Returns True if deleted."""
+    for i, design in enumerate(_DESIGNS):
+        if design.get("name") == name:
+            del _DESIGNS[i]
+            return True
+    return False

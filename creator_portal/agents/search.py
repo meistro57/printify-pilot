@@ -20,3 +20,8 @@ def search_products(term: str) -> List[Dict]:
         if term in title or any(term in t for t in tags):
             results.append(product)
     return results
+
+
+def count_products(term: str) -> int:
+    """Return the number of products matching the search term."""
+    return len(search_products(term))
