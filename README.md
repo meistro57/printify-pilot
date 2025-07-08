@@ -12,7 +12,8 @@ pip install -r requirements.txt
 
 ## Configuration
 
-Run the setup script to save your API keys in `config.py`:
+Configuration values are read from environment variables by default. You can
+optionally run the setup script to generate a `config.py` file:
 
 ```bash
 python setup.py
