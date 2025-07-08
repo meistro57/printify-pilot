@@ -17,6 +17,11 @@ from creator_portal.agents.affiliate import generate_link, record_click, report
 from creator_portal.agents.pricing import schedule_discount, list_schedules
 from creator_portal.agents.import_tools import import_products
 from creator_portal.agents.tax import calculate_tax
+from creator_portal.agents.workflow import register_template, run_template
+from creator_portal.agents.voice_assistant import register_command, trigger
+from creator_portal.agents.feedback import add_review, get_reviews
+from creator_portal.agents.price_tuning import record_sale, suggest_price
+from creator_portal.agents.style_match import match_style
 from datetime import datetime
 from creator_portal.plugins import list_plugins
 from creator_portal.tasks import create_product_task, celery_app
@@ -106,3 +111,30 @@ def test_import_products():
 
 def test_tax_calc():
     assert calculate_tax(100.0, 'us') == 7.0
+
+def test_workflow_template():
+    register_template('demo', [lambda: 'a', lambda: 'b'])
+    assert run_template('demo') == ['a', 'b']
+
+
+def test_voice_assistant():
+    register_command('start', lambda: 'ok')
+    assert trigger('start') == 'ok'
+
+
+def test_feedback_loop():
+    add_review('p1', 'great')
+    assert get_reviews('p1')[0] == 'great'
+
+
+def test_price_tuning():
+    record_sale(12.0, 5.0)
+    record_sale(15.0, 5.0)
+    new_price = suggest_price(10.0)
+    assert new_price > 10.0
+
+
+def test_style_match():
+    results = match_style('retro')
+    assert 'Sunset Tee' in results
+
